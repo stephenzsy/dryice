@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfraStarter.ResourceDetailsPage"
+             xmlns:viewModel="clr-namespace:InfraStarter.ViewModels"
+             xmlns:config="clr-namespace:InfraStarter.Configuration"
+             xmlns:controls="clr-namespace:InfraStarter.Controls"
+             x:DataType="viewModel:ResourceDetailsPageViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="{Binding PageTitle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout Padding="24" Spacing="8">
+        <Frame IsVisible="{Binding IsNew}">
+            <controls:ResourceTypePicker ResourceType="{Binding ResourceType}" />
+        </Frame>
+        <controls:ResourceConfigForm ControlTemplate="{Binding FormControlTemplate, Source={RelativeSource AncestorType={x:Type viewModel:ResourceDetailsPageViewModel}}}" 
+                                     BindingContext="{Binding FormViewModel}"/>
+        <CollectionView IsVisible="{Binding ValidationErrors, Converter={StaticResource IsListNotNullOrEmptyConverter}}" ItemsSource="{Binding ValidationErrors}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding}" TextColor="Red" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid ColumnDefinitions="*,Auto">
+            <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                <Button 
+                    Text="Cancel"
+                    TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Primary}}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Gray100}}" 
+                    Command="{Binding CancelCommand}"/>
+                <Button Text="Save" Command="{Binding SaveCommand}" />
+            </HorizontalStackLayout>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

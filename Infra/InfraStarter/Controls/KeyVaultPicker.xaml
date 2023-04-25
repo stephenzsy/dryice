@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfraStarter.Controls.KeyVaultPicker"
+             xmlns:controls="clr-namespace:InfraStarter.Controls">
+    <VerticalStackLayout x:Name="MainView" Padding="8" Spacing="8" x:DataType="controls:KeyVaultPickerViewModel">
+        <Label Text="{Binding IdentitySourceID}" />
+        <Button Text="List subscriptions" Command="{Binding GetSubscriptionsCommand}" />
+        <Picker Title="Select subscription" ItemsSource="{Binding Subscriptions}" ItemDisplayBinding="{Binding DisplayName}" SelectedItem="{Binding SelectedSubscription}" />
+        <Picker Title="Select KeyVault" />
+    </VerticalStackLayout>
+</ContentView>

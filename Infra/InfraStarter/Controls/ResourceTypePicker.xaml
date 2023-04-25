@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfraStarter.Controls.ResourceTypePicker"
+             xmlns:rdn="clr-namespace:InfraStarter.Resources.DisplayNames"
+             xmlns:c="clr-namespace:InfraStarter.Controls"
+             xmlns:config="clr-namespace:InfraStarter.Configuration"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <VerticalStackLayout Spacing="8" x:DataType="c:ResourceTypePickerViewModel">
+        <Picker Title="Select category" SelectedItem="{Binding Category}" ItemDisplayBinding="{Binding Converter={StaticResource ResourceDisplayNameConverter}}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:Static Member="config:ResourceCategoryName.IdentitySource"/>
+                    <x:Static Member="config:ResourceCategoryName.KeyProvider"/>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Picker Title="Select resource type" SelectedItem="{Binding ResourceType}" ItemDisplayBinding="{Binding Converter={StaticResource ResourceDisplayNameConverter}}" ItemsSource="{Binding AvailableResourceTypes}" 
+                IsEnabled="{Binding AvailableResourceTypes, Converter={x:StaticResource IsListNotNullOrEmptyConverter}}"/>
+    </VerticalStackLayout>
+</ContentView>

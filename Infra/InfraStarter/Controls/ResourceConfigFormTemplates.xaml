@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfraStarter.Controls.ResourceConfigFormTemplates"
+             xmlns:vmr="clr-namespace:InfraStarter.ViewModels.ResourceConfigForm">
+    <ControlTemplate x:Key="ResourceConfigFormAadApp">
+        <VerticalStackLayout Spacing="8" x:DataType="vmr:AadAppViewModel" BindingContext="{Binding Source={RelativeSource TemplatedParent}, Path=BindingContext }">
+            <VerticalStackLayout>
+                <Label Text="Name" />
+                <Entry Text="{Binding Name}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Application ID" />
+                <Entry Text="{Binding ApplicationId}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Redirect URI" />
+                <Entry Text="{Binding RedirectUri}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Tenant ID" />
+                <Entry Text="{Binding TenantId}"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ControlTemplate>
+    <ControlTemplate x:Key="ResourceConfigFormAzureKeyVault">
+        <VerticalStackLayout Spacing="8" x:DataType="vmr:AzureKeyVaultViewModel"  BindingContext="{Binding Source={RelativeSource TemplatedParent}, Path=BindingContext}">
+            <VerticalStackLayout>
+                <Label Text="Name" />
+                <Entry Text="{Binding Name}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Key Vault URI" />
+                <Entry Text="{Binding KeyVaultUri}"/>
+            </VerticalStackLayout>
+            <Picker Title="Select identity source" ItemsSource="{Binding AvailableIdentitySources}" SelectedItem="{Binding IdentitySource}" ItemDisplayBinding="{Binding Name}" />
+        </VerticalStackLayout>
+    </ControlTemplate>
+    <ControlTemplate x:Key="ResourceConfigFormYubiKey">
+        <VerticalStackLayout Spacing="8" x:DataType="vmr:YubiKeyViewModel"  BindingContext="{Binding Source={RelativeSource TemplatedParent}, Path=BindingContext}">
+            <VerticalStackLayout>
+                <Label Text="Name" />
+                <Entry Text="{Binding Name}"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ControlTemplate>
+</ResourceDictionary>

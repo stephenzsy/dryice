@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseResourceFields 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:configs="clr-namespace:InfraStarter.Configuration"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:InfraStarter.Controls"
+    x:Class="InfraStarter.Controls.AzureKeyVaultFields"
+    xmlns:viewModel="clr-namespace:InfraStarter.ViewModels"
+    x:DataType="viewModel:AzureKeyVaultFieldsViewModel">
+    <VerticalStackLayout Spacing="8">
+        <VerticalStackLayout>
+            <Picker Title="Select identity source" ItemsSource="{Binding AvailableIdentitySources}"  ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedIdentitySource}"/>
+            <Label Text="This is used to sign in to grant access to sepcified Azure Key Vault if needed." />
+        </VerticalStackLayout>
+        <Button Text="Pick from Azure" Command="{Binding EnablePickerCommand}"/>
+        <controls:KeyVaultPicker  IdentitySourceID="{Binding PickerIdentitySourceId}" />
+    </VerticalStackLayout>
+</controls:BaseResourceFields>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseResourceFields 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:configs="clr-namespace:InfraStarter.Configuration"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:InfraStarter.Controls"
+    x:Class="InfraStarter.Controls.AadAppFields"
+    xmlns:viewModel="clr-namespace:InfraStarter.ViewModels"
+    x:DataType="viewModel:AadAppFieldsViewModel">
+    <VerticalStackLayout Spacing="8">
+        <VerticalStackLayout>
+            <Label Text="Application ID" />
+            <Entry Text="{Binding AppId}" />
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label Text="Redirect URI" />
+            <Entry Text="{Binding RedirectUri}" 
+                   Keyboard="Url"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label Text="Tenant ID" />
+            <Entry Text="{Binding TenantId}" />
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</controls:BaseResourceFields>
