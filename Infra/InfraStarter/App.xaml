@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:InfraStarter"
              xmlns:rdn="clr-namespace:InfraStarter.Resources.DisplayNames"
-             x:Class="InfraStarter.App">
+             x:Class="InfraStarter.App"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,6 +12,12 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary>
                     <rdn:ResourceDisplayNameConverter x:Key="ResourceDisplayNameConverter" />
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <toolkit:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter"/>
+                    <toolkit:DateTimeOffsetConverter x:Key="DateTimeOffsetConverter" />
+                    <toolkit:IsNullConverter x:Key="IsNullConverter" />
+                    <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

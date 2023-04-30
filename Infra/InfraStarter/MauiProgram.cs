@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Maui;
 using InfraStarter.Configuration;
 using InfraStarter.Controls;
+using InfraStarter.Pages;
+using InfraStarter.Services;
+using InfraStarter.Services.Profile;
 using InfraStarter.ViewModels;
 using InfraStarter.ViewModels.ResourceConfigForm;
 using Microsoft.Extensions.Logging;
@@ -19,9 +22,15 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("materialdesignicons-webfont.ttf", "Mdi");
 			});
 
 		builder.Services
+			.AddSingleton<IProfileService, ProfileService>()
+			.AddSingleton<SettingsPageViewModel>()
+			.AddSingleton<SettingsPage>()
+			.AddTransient<ProfileDetailsPageViewModel>()
+			.AddSingleton<ProfileDetailsPage>()
 			.AddSingleton<AppConfig>(AppConfig.LoadFromAppData())
 			.AddSingleton<ResourcesPageViewModel>()
 			.AddSingleton<ResourcesPage>()

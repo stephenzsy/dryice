@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfraStarter.Pages.ProfileDetailsPage"
+             Title="Profile Details"
+             xmlns:pages="clr-namespace:InfraStarter.Pages"
+             x:DataType="pages:ProfileDetailsPageViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="8">
+            <VerticalStackLayout>
+                <Label Text="Profile Name" />
+                <Entry Text="{Binding ProfileName}" />
+            </VerticalStackLayout>
+            <Frame>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Active Directory Application Settings" FontSize="Medium" SemanticProperties.HeadingLevel="Level3"/>
+                    <VerticalStackLayout>
+                        <Label Text="Application (client) ID" />
+                        <Entry Text="{Binding AadAppId}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Redirect URI" />
+                        <Entry Text="{Binding RedirectUri}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Directory (tenant) ID" />
+                        <Entry Text="{Binding TenantId}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="CosmosDB Settings" FontSize="Medium" SemanticProperties.HeadingLevel="Level3"/>
+                    <VerticalStackLayout>
+                        <Label Text="Account endpoint" />
+                        <Entry Text="{Binding CosmosAccountEndpoint}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame BackgroundColor="{AppThemeBinding Default={StaticResource Yellow300Accent}}" IsVisible="{Binding DisplayValidationErrors, Converter={StaticResource IsListNotNullOrEmptyConverter}}">
+                <CollectionView ItemsSource="{Binding DisplayValidationErrors}"/>
+            </Frame>
+            <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+                <Button StyleClass="Secondary" Text="Cancel" Command="{Binding CancelCommand}" />
+                <Button Text="Save" Command="{Binding SaveCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

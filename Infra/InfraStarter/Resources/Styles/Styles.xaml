@@ -47,6 +47,8 @@
         </Setter>
     </Style>
     <Style TargetType="Button" Class="Secondary">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Primary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Gray200}}" />
     </Style>
 
     <Style TargetType="CheckBox">

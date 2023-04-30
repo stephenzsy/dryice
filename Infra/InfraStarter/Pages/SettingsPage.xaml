@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfraStarter.Pages.SettingsPage"
+             Title="Settings"
+             xmlns:pages="clr-namespace:InfraStarter.Pages"
+             x:DataType="pages:SettingsPageViewModel"
+             xmlns:profileService="clr-namespace:InfraStarter.Services.Profile"
+             xmlns:sharedControls="clr-namespace:InfraStarter.Controls.Shared">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="12">
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto, Auto" ColumnSpacing="8" RowSpacing="8">
+                <Label 
+                    Text="Profiles"
+                    FontSize="Large"
+                    SemanticProperties.HeadingLevel="Level2"
+                    Grid.Column="0" Grid.Row="0" />
+                <Button Command="{Binding AddProfileCommand}" Text="Create profile"
+                        Grid.Column="1" Grid.Row="0"/>
+                <VerticalStackLayout Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Spacing="8">
+                    <Label Text="Current active profile" FontSize="Medium" SemanticProperties.HeadingLevel="Level3"/>
+                    <Frame IsVisible="{Binding ActiveProfile,Converter={StaticResource IsNullConverter}}">
+                        <Label Text="No active profile" />
+                    </Frame>
+                    <Frame IsVisible="{Binding ActiveProfile,Converter={StaticResource IsNotNullConverter}}">
+                        <VerticalStackLayout BindingContext="{Binding ActiveProfile, Source={RelativeSource  AncestorType={x:Type pages:SettingsPageViewModel}}}"
+                                             x:DataType="pages:ActiveProfileViewModel">
+                            <Label Text="{Binding Name}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Label Text="Other profiles" FontSize="Medium" SemanticProperties.HeadingLevel="Level3"/>
+                    <CollectionView ItemsSource="{Binding RestProfiles}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="profileService:ProfileConfig">
+                                <Frame Margin="4">
+                                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                                        <Label Text="{Binding Name}" Grid.Column="0" Grid.Row="0"/>
+                                        <Label Text="{Binding UpdatedAtLocal, StringFormat='Last updated: {0}'}" Grid.Row="1" Grid.Column="0"/>
+                                        <HorizontalStackLayout Spacing="4" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                                            <Button Text="View/Edit" class="Secondary" 
+                                                    Command="{Binding ViewProfileCommand, Source={RelativeSource AncestorType={x:Type pages:SettingsPageViewModel}}}" 
+                                                    CommandParameter="{Binding ID}"/>
+                                            <Button Text="Set as active" class="Secondary"                           
+                                                    Command="{Binding ActivateProfileCommand, Source={RelativeSource AncestorType={x:Type pages:SettingsPageViewModel}}}" 
+                                                    CommandParameter="{Binding ID}"/>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
