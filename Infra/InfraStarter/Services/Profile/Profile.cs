@@ -1,4 +1,5 @@
-﻿using InfraStarter.Services.Models;
+﻿using InfraStarter.Services.ConfigData;
+using InfraStarter.Services.Models;
 using Microsoft.Identity.Client;
 using Microsoft.Maui.Storage;
 using System;
@@ -28,6 +29,12 @@ namespace InfraStarter.Services.Profile
 	{
 		[JsonPropertyName("account-endpoint")]
 		public required string AccountEndpoint { get; init; }
+
+		[JsonPropertyName("database-id")]
+		public required string DatabaseId { get; init; }
+
+		[JsonPropertyName("dev-account-key")]
+		public string DevAccountKey { get; init; }
 	}
 
 
@@ -77,9 +84,9 @@ namespace InfraStarter.Services.Profile
 
 		private bool deactivated = false;
 
-		internal void Deactivate()
+		public void Deactivate()
 		{
-			deactivated = false;
+			deactivated = true;
 		}
 
 
@@ -115,12 +122,33 @@ namespace InfraStarter.Services.Profile
 				Account = result.Account,
 			};
 		}
-		/*
-		private ResourceToken LoadResourceTokenFromCache()
-		{
 
+		private IConfigDataProvider configDataProvider;
+
+		public Task CheckConfigDB()
+		{
+			return ConfigDataProvider.CheckSchemaAsync();
 		}
-		*/
+
+		public IConfigDataProvider ConfigDataProvider
+		{
+			get
+			{
+				configDataProvider ??= new CosmosConfigDataProvider(
+					new Microsoft.Azure.Cosmos.Fluent.CosmosClientBuilder(
+						ProfileConfig.CosmosConfig.AccountEndpoint,
+						ProfileConfig.CosmosConfig.DevAccountKey),
+					ProfileConfig.CosmosConfig.DatabaseId);
+				return configDataProvider;
+			}
+		}
+
+		/*
+private ResourceToken LoadResourceTokenFromCache()
+{
+
+}
+*/
 
 		private IPublicClientApplication MsalApp
 		{

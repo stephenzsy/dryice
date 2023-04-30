@@ -13,5 +13,8 @@ namespace InfraStarter.Services.Models
 		public Task<IAccount> GetSignedInAccountAsync();
 
 		public string Name { get; }
+
+		public Task CheckConfigDB();
+		void Deactivate();
 	}
 }

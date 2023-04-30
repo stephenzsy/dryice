@@ -19,6 +19,24 @@
         ContentTemplate="{DataTemplate local:ResourcesPage}"
         Route="ResourcesPage" />
     </FlyoutItem>
+    <FlyoutItem Title="Keys">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="Mdi" Glyph="&#xF0306;" Color="{AppThemeBinding Default={StaticResource Gray900}}" />
+        </FlyoutItem.Icon>
+        <ShellContent
+        Title="Keys"
+        ContentTemplate="{DataTemplate pages:SettingsPage}"
+        Route="SettingsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Key Stores">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="Mdi" Glyph="&#xF0A6A;" Color="{AppThemeBinding Default={StaticResource Gray900}}" />
+        </FlyoutItem.Icon>
+        <ShellContent
+        Title="Key Stores"
+        ContentTemplate="{DataTemplate pages:SettingsPage}"
+        Route="SettingsPage" />
+    </FlyoutItem>
     <FlyoutItem Title="Settings">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="Mdi" Glyph="&#xF08BB;" Color="{AppThemeBinding Default={StaticResource Gray900}}" />

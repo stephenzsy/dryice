@@ -26,7 +26,17 @@
                     <Frame IsVisible="{Binding ActiveProfile,Converter={StaticResource IsNotNullConverter}}">
                         <VerticalStackLayout BindingContext="{Binding ActiveProfile, Source={RelativeSource  AncestorType={x:Type pages:SettingsPageViewModel}}}"
                                              x:DataType="pages:ActiveProfileViewModel">
-                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label TextDecorations="Underline" TextColor="Blue" Text="Check config database">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CheckConfigDBCommand}" />
+                                </Label.GestureRecognizers>                             
+                            </Label>
+                            <Label TextDecorations="Underline" TextColor="Blue" Text="Deactivate">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DeactivateCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </VerticalStackLayout>
                     </Frame>
                     <Label Text="Other profiles" FontSize="Medium" SemanticProperties.HeadingLevel="Level3"/>

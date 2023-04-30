@@ -92,6 +92,9 @@ namespace InfraStarter.Services.Profile
 				{
 					activeProfile = new ActiveProfile(profileConfig);
 					Preferences.Default.Set<string>("activeProfileId", profileConfig.ID.ToString());
+				} else
+				{
+					Preferences.Default.Remove("activeProfileId");
 				}
 				ActiveProfileChanged?.Invoke(this, ActiveProfile);
 			}

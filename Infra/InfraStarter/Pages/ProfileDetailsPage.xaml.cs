@@ -32,6 +32,11 @@ public partial class ProfileDetailsPageViewModel : ObservableValidator
 	[ObservableProperty]
 	[Required]
 	private string cosmosAccountEndpoint;
+	[ObservableProperty]
+	[Required]
+	private string databaseId;
+	[ObservableProperty]
+	private string accountPrimaryKey;
 
 	private readonly IProfileService profileService;
 
@@ -54,6 +59,8 @@ public partial class ProfileDetailsPageViewModel : ObservableValidator
 				RedirectUri = selectedProfile.LinkedAad.RedirectURI;
 				TenantId = selectedProfile.LinkedAad.TenantID;
 				CosmosAccountEndpoint = selectedProfile.CosmosConfig.AccountEndpoint;
+				DatabaseId = selectedProfile.CosmosConfig.DatabaseId;
+				AccountPrimaryKey = selectedProfile.CosmosConfig.DevAccountKey;
 			}
 			else
 			{
@@ -66,6 +73,8 @@ public partial class ProfileDetailsPageViewModel : ObservableValidator
 			RedirectUri = null;
 			TenantId = null;
 			CosmosAccountEndpoint = null;
+			DatabaseId = null;
+			AccountPrimaryKey = null;
 		}
 		DisplayValidationErrors = null;
 	}
@@ -88,7 +97,7 @@ public partial class ProfileDetailsPageViewModel : ObservableValidator
 			ID = ProfileID,
 			Name = ProfileName,
 			LinkedAad = new ProfileLinkedAad { ApplicationID = AadAppId, RedirectURI = RedirectUri, TenantID = TenantId },
-			CosmosConfig = new ProfileCosmosConfig { AccountEndpoint = CosmosAccountEndpoint }
+			CosmosConfig = new ProfileCosmosConfig { AccountEndpoint = CosmosAccountEndpoint, DatabaseId = DatabaseId, DevAccountKey = AccountPrimaryKey },
 		};
 		profileService.SaveProfile(config);
 	}

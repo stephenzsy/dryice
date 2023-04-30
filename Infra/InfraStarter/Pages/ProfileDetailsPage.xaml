@@ -35,6 +35,14 @@
                         <Label Text="Account endpoint" />
                         <Entry Text="{Binding CosmosAccountEndpoint}" />
                     </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Databse ID" />
+                        <Entry Text="{Binding DatabaseId}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Account primary key (not for production)" />
+                        <Entry Text="{Binding AccountPrimaryKey}" />
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
             </Frame>
             <Frame BackgroundColor="{AppThemeBinding Default={StaticResource Yellow300Accent}}" IsVisible="{Binding DisplayValidationErrors, Converter={StaticResource IsListNotNullOrEmptyConverter}}">

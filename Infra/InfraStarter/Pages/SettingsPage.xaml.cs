@@ -10,12 +10,27 @@ namespace InfraStarter.Pages;
 public partial class ActiveProfileViewModel : ObservableObject
 {
 	private readonly IActiveProfile profile;
-	public ActiveProfileViewModel(IActiveProfile activeProfile)
+	private readonly IProfileService profileService;
+	public ActiveProfileViewModel(IActiveProfile activeProfile, IProfileService profileService)
 	{
 		this.profile = activeProfile;
+		this.profileService = profileService;
 	}
 
 	public string Name => profile.Name;
+
+	[RelayCommand]
+	public Task CheckConfigDB()
+	{
+		return profile.CheckConfigDB();
+	}
+
+	[RelayCommand]
+	public void Deactivate()
+	{
+		profile.Deactivate();
+		profileService.ActivateProfile(Guid.Empty);
+	}
 }
 
 public partial class SettingsPageViewModel : ObservableObject
@@ -52,12 +67,13 @@ public partial class SettingsPageViewModel : ObservableObject
 		var v = profileService.ActiveProfile;
 		if (v != null)
 		{
-			ActiveProfile = new ActiveProfileViewModel(v);
+			ActiveProfile = new ActiveProfileViewModel(v, profileService);
 		}
 		else
 		{
 			ActiveProfile = null;
 		}
+		OnProfilesChanged(sender, profileService.ProfileConfigs);
 	}
 
 	private void OnProfilesChanged(object sender, IList<ProfileConfig> e)
